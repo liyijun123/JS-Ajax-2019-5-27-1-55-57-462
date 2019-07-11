@@ -1,20 +1,39 @@
 # JS-Ajax
 
-## 需求
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>demo</title>
+</head>
+<body>
+        <form>
 
-- 创建一个名为ajax的XHR对象，其示例用法如下：
+        <button onclick="returnText();return false">登陆</button>
+    </form>
+    <script type="text/javascript">
+        function returnText(){
+            var xhr = createXHR();
+            xhr.onreadystatechange = function(){
+                if(xhr.readyState == 4){
+                    if((xhr.status >= 200 && xhr.status < 300) || xhr.status == 304){
+                        alert(xhr.responseText);
+                    }else{
+                        alert('获取失败'+xhr.status)
+                    }
+                }
+            }
+            xhr.open('get','demo.php',true);
+            xhr.send(null);
 
-```
-  function myCallback(xhr){ 
-    alert(xhr.responseText); 
-  }
-  ajax.request(“somefile.txt”,”get”,myCallback);
-  ajax.request(“script.php”,”post”,myCallback,”first=John&last=Smith”);
-```
-
-## 作业要求  
-
-- fork本仓库
-- 按照readme要求完成作业
-- 将作业提交到github，把github地址提交回系统
-
+        }
+        function createXHR(){
+            if(typeof XMLHttpRequest != 'undefined'){
+                return new XMLHttpRequest();
+            }else{
+                return new ActiveXObject('Microsoft.XMLHTTP')
+            }
+        }
+    </script>
+</body>
+</html>
